@@ -1,7 +1,7 @@
 
 import { createIcons, LogIn, UserCog } from "lucide";
 import Swal from "sweetalert2";
-import { loginSchema } from "./schemas/auth";
+import { loginSchema } from "../schemas/auth";
 
 
 export function loginPage() {
@@ -102,7 +102,7 @@ export function loginPage() {
       if (!result.success) {
         Swal.fire({
           title: 'Error',
-          text: result.error.errors.map(e => e.message).join(', '),
+          text: result.error.errors.map((e: { message: string }) => e.message).join(', '),
           icon: 'error',
           confirmButtonText: 'Aceptar'
         });
@@ -124,7 +124,7 @@ export function loginPage() {
           confirmButtonText: 'Aceptar',
           confirmButtonColor: '#00a63e'
         }).then(() => {
-          window.location.href = '#/dashboard';
+          window.location.href = '/dashboard';
         });
       } else {
         Swal.fire({

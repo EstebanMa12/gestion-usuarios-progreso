@@ -1,8 +1,13 @@
+import { loginPage } from './pages/auth';
+import { dashboardPage } from './pages/dashboard';
 import './style.css'
-import { loginPage } from './auth'
 
-const route = window.location.hash
 
-loginPage()
+const route = window.location.pathname
+if (route === '/dashboard') {
+  dashboardPage();
+} else {
+  loginPage();
+}
 
 
