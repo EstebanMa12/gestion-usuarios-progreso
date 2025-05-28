@@ -6,7 +6,7 @@ import { loginSchema } from "../schemas/auth";
 
 export function LoginPage() {
   const app = document.getElementById('app');
-  if (!app) return
+  if (!app) return ''
 
   app.innerHTML = `
     <body class="antialiased bg-gradient-to-br from-green-100 to-white">
