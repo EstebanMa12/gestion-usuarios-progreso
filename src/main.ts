@@ -31,6 +31,16 @@ switch (route) {
       app.innerHTML = MainLayout(DashboardPage())
       setupSidebar();
       setupUsersPage(); // Inicializa los filtros y búsqueda
+      // Asignar event listener al botón de exportar CSV
+      const exportBtn = document.getElementById('exportCsvBtn');
+      if (exportBtn) {
+        import('./utils/exportUsersToCSV').then(({ exportUsersToCSV }) => {
+          exportBtn.addEventListener('click', () => {
+            const users = UserStorage.getAll();
+            exportUsersToCSV(users);
+          });
+        });
+      }
     }
     // Puedes agregar aquí lógica para eventos del layout, como logout
     const logoutBtn = document.getElementById('logoutBtn');

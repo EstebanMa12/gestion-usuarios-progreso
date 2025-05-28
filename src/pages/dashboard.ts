@@ -14,8 +14,9 @@ const isAdmin = userData.role === 'admin';
 
 return `
     <div class="p-6 max-w-6xl mx-auto">
-    <div class="flex w-full  items-center justify-end">
+    <div class="flex w-full  items-center justify-end gap-2">
       ${isAdmin ? RegisterButton() : ''}
+      ${isAdmin ? `<button id="exportCsvBtn" class="flex items-center gap-2 mb-2 px-4 py-2 bg-gray-100 text-gray-600 rounded hover:bg-gray-300 transition-colors duration-200 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm text-sm font-semibold">Exportar CSV</button>` : ''}
     </div>
       <div class="mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">

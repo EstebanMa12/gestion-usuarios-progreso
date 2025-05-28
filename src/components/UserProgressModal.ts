@@ -34,6 +34,124 @@ export function showUserProgressModal(userId: string): void {
 
     <!-- Content -->
     <div class="overflow-y-auto max-h-[calc(90vh-140px)]">
+    <div class="px-6 py-4 bg-gradient-to-r from-slate-50 to-gray-50 border-b border-gray-100">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+          <h3 class="text-lg font-semibold text-gray-800">Resumen de Rendimiento</h3>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="statsContainer">
+          <!-- Promedio General -->
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Promedio</span>
+              <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+            </div>
+            <div class="flex items-end gap-1">
+              <span class="text-2xl font-bold text-blue-600" id="averageScore">
+                ${progressEntries.length > 0 ? Math.round(progressEntries.reduce((sum, entry) => sum + entry.score, 0) / progressEntries.length) : 0}
+              </span>
+              <span class="text-sm text-gray-500 mb-1">/100</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500" 
+                   style="width: ${progressEntries.length > 0 ? Math.round(progressEntries.reduce((sum, entry) => sum + entry.score, 0) / progressEntries.length) : 0}%"></div>
+            </div>
+          </div>
+
+          <!-- Último Puntaje -->
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Último</span>
+              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+            <div class="flex items-end gap-1">
+              <span class="text-2xl font-bold text-green-600" id="lastScore">
+                ${progressEntries.length > 0 ? progressEntries[progressEntries.length - 1].score : 0}
+              </span>
+              <span class="text-sm text-gray-500 mb-1">/100</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full transition-all duration-500" 
+                   style="width: ${progressEntries.length > 0 ? progressEntries[progressEntries.length - 1].score : 0}%"></div>
+            </div>
+          </div>
+
+          <!-- Mejor Puntaje -->
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Mejor</span>
+              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            </div>
+            <div class="flex items-end gap-1">
+              <span class="text-2xl font-bold text-yellow-600" id="bestScore">
+                ${progressEntries.length > 0 ? Math.max(...progressEntries.map(entry => entry.score)) : 0}
+              </span>
+              <span class="text-sm text-gray-500 mb-1">/100</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 h-2 rounded-full transition-all duration-500" 
+                   style="width: ${progressEntries.length > 0 ? Math.max(...progressEntries.map(entry => entry.score)) : 0}%"></div>
+            </div>
+          </div>
+
+          <!-- Total Evaluaciones -->
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Total</span>
+              <div class="w-3 h-3 bg-indigo-500 rounded-full"></div>
+            </div>
+            <div class="flex items-end gap-1">
+              <span class="text-2xl font-bold text-indigo-600" id="totalEvaluations">
+                ${progressEntries.length}
+              </span>
+              <span class="text-sm text-gray-500 mb-1">eval.</span>
+            </div>
+            <div class="flex items-center mt-2">
+              <svg class="w-4 h-4 text-indigo-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-xs text-gray-600">evaluaciones</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tendencia -->
+        <div class="mt-4 p-3 bg-white rounded-lg border border-gray-200" id="trendContainer">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium text-gray-700">Tendencia</span>
+            <div class="flex items-center gap-1" id="trendIndicator">
+              ${(() => {
+                if (progressEntries.length < 2) return '<span class="text-xs text-gray-500">Insuficientes datos</span>';
+                const lastTwo = progressEntries.slice(-2);
+                const trend = lastTwo[1].score - lastTwo[0].score;
+                if (trend > 0) {
+                  return `
+                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="text-sm font-medium text-green-600">Mejorando (+${trend})</span>
+                  `;
+                } else if (trend < 0) {
+                  return `
+                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="text-sm font-medium text-red-600">Descendiendo (${trend})</span>
+                  `;
+                } else {
+                  return `
+                    <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="text-sm font-medium text-gray-600">Estable (${trend})</span>
+                  `;
+                }
+              })()}
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Historial Section -->
       <div class="px-6 py-4 border-b border-gray-100">
         <div class="flex items-center gap-2 mb-4">
