@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { loginSchema } from "../schemas/auth";
 
 
-export function loginPage() {
+export function LoginPage() {
   const app = document.getElementById('app');
   if (!app) return
 

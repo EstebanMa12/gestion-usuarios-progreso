@@ -1,22 +1,18 @@
-export function dashboardPage() {
-const app = document.getElementById('app');
-if (!app) return;
+import { RegisterButton } from "../components/RegisterButton";
+export function DashboardPage() {
 
 const userData = JSON.parse(localStorage.getItem('user') || '{}');
 if(!userData){
   window.location.href = '/';
-  return;
+  return '';
 }
 
-const {email} = userData;
 
-app.innerHTML = `
+return `
     <div class="p-6 max-w-6xl mx-auto">
-      <header class="flex items-center justify-between mb-6">
-        <h1 class="text-3xl font-bold text-gray-800">Panel de usuarios</h1>
-        <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded">Cerrar sesión</button>
-      </header>
-
+    <div class="flex w-full  items-center justify-end">
+      ${RegisterButton()}
+    </div>
       <div class="overflow-x-auto">
         <table class="w-full table-auto border border-gray-200 shadow-md rounded">
           <thead class="bg-gray-100">
@@ -36,16 +32,6 @@ app.innerHTML = `
       </div>
     </div>
   `;
-
-  const logoutBtn = document.getElementById('logoutBtn');
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      localStorage.removeItem('user');
-      window.location.href = '/';
-    });
-  }
-
-  renderUsers();
 }
 
 function renderUsers(): void {
