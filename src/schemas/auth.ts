@@ -24,6 +24,7 @@ export const userSchema = z.object({
 
 export type User = z.infer<typeof userSchema> & {
   id: string
+  state: boolean
   createdAt: string
   updatedAt: string
 }

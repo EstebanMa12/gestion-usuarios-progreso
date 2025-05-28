@@ -271,6 +271,7 @@ export class UserForm {
       const user: User = {
         ...validatedData,
         id: this.editUser?.id || this.generateId(),
+        state: this.editUser?.state || false,
         createdAt: this.editUser?.createdAt || new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       }

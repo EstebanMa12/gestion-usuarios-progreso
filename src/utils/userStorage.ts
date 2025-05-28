@@ -42,4 +42,23 @@ export class UserStorage {
   static clear(): void {
     localStorage.removeItem(this.STORAGE_KEY)
   }
+
+  static updateState(userId: string, newState: boolean): void {
+    const users = this.getAll()
+    const userIndex = users.findIndex((user) => user.id === userId)
+
+    if (userIndex >= 0) {
+      users[userIndex].state = newState
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(users))
+    }
+  }
+
+  static getByEmail(email: string): User | undefined {
+    const users = this.getAll()
+    return users.find((user) => user.email === email)
+  }
+  static getByRole(role: string): User[] {
+    const users = this.getAll()
+    return users.filter((user) => user.role === role)
+  }
 }
