@@ -6,6 +6,7 @@ import { RegisterPage, setupRegisterPage } from './pages/register';
 import { EditUserPage, setupEditUserPage } from './pages/edit-user';
 import { UserStorage } from './utils/userStorage';
 import { setupUsersPage } from "./components/SetupUserPage";
+import { showUserProgressModal } from './components/UserProgressModal';
 
 const app = document.getElementById('app');
 const route = window.location.pathname
@@ -49,6 +50,15 @@ switch (route) {
       });
     });
 
+    // Evento para ver progreso
+    document.querySelectorAll('.viewProgressBtn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const userId = (e.currentTarget as HTMLElement).getAttribute('data-user-id');
+        if (userId) {
+          showUserProgressModal(userId);
+        }
+      });
+    });
 
     document.querySelectorAll('.toggle-switch').forEach((el) => {
       el.addEventListener('change', (e) => {

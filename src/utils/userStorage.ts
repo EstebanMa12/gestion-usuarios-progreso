@@ -61,4 +61,16 @@ export class UserStorage {
     const users = this.getAll()
     return users.filter((user) => user.role === role)
   }
+
+  static addProgress(userId: string, entry: { date: string; comment: string; score: number }) {
+    const users = this.getAll();
+    const userIndex = users.findIndex((u) => u.id === userId);
+    if (userIndex >= 0) {
+      if (!Array.isArray((users[userIndex] as any).progress)) {
+        (users[userIndex] as any).progress = [];
+      }
+      (users[userIndex] as any).progress.push(entry);
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(users));
+    }
+  }
 }
