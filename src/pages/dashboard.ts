@@ -1,4 +1,7 @@
+import { renderEmptyState } from "../components/EmptyState";
 import { RegisterButton } from "../components/RegisterButton";
+import { renderUsersTable } from "../components/RenderUserTable";
+import { UserStorage } from "../utils/userStorage";
 export function DashboardPage() {
 
 const userData = JSON.parse(localStorage.getItem('user') || '{}');
@@ -6,53 +9,44 @@ if(!userData){
   window.location.href = '/';
   return '';
 }
-
+const users = UserStorage.getAll();
+const isAdmin = userData.role === 'admin';
 
 return `
     <div class="p-6 max-w-6xl mx-auto">
-    <div class="flex w-full  items-center justify-end">
-      ${RegisterButton()}
+    <div class="flex w-full  items-center justify-end gap-2">
+      ${isAdmin ? RegisterButton() : ''}
+      ${isAdmin ? `<button id="exportCsvBtn" class="flex items-center gap-2 mb-2 px-4 py-2 bg-gray-100 text-gray-600 rounded hover:bg-gray-300 transition-colors duration-200 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm text-sm font-semibold">Exportar CSV</button>` : ''}
     </div>
-      <div class="overflow-x-auto">
-        <table class="w-full table-auto border border-gray-200 shadow-md rounded">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="px-4 py-2 text-left">Nombre</th>
-              <th class="px-4 py-2 text-left">Correo</th>
-              <th class="px-4 py-2 text-left">Rol</th>
-              <th class="px-4 py-2 text-left">Ruta</th>
-              <th class="px-4 py-2 text-left">Estado</th>
-              <th class="px-4 py-2 text-left">Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="usersTableBody" class="bg-white">
-            <!-- Usuarios serán renderizados aquí -->
-          </tbody>
-        </table>
+      <div class="mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label for="searchInput" class="block text-sm font-medium text-gray-700 mb-1">Buscar</label>
+            <input type="text" id="searchInput" placeholder="Buscar por email..." 
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+          </div>
+          <div>
+            <label for="roleFilter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por rol</label>
+            <select id="roleFilter" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+              <option value="">Todos los roles</option>
+              <option value="student">Estudiante</option>
+              <option value="tutor">Tutor</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista de usuarios -->
+      <div id="usersContainer" class="bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden">
+        ${users.length === 0 ? renderEmptyState(isAdmin) : renderUsersTable(users)}
       </div>
     </div>
   `;
 }
 
-function renderUsers(): void {
-  const users = JSON.parse(localStorage.getItem('users') || '[]');
-  const tbody = document.getElementById('usersTableBody');
-  if (!tbody) return;
 
-  tbody.innerHTML = users.map((user: any, index: number) => `
-    <tr class="border-t">
-      <td class="px-4 py-2">${user.name}</td>
-      <td class="px-4 py-2">${user.email}</td>
-      <td class="px-4 py-2">${user.role}</td>
-      <td class="px-4 py-2">${user.track}</td>
-      <td class="px-4 py-2">
-        <span class="inline-block px-2 py-1 text-sm rounded ${user.active ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}">
-          ${user.active ? 'Activo' : 'Inactivo'}
-        </span>
-      </td>
-      <td class="px-4 py-2">
-        <button class="text-sm text-blue-600 hover:underline" onclick="window.location.href='#/progreso?user=${index}'">Ver progreso</button>
-      </td>
-    </tr>
-  `).join('');
-}
+
+
+
+

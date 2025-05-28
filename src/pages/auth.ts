@@ -6,7 +6,7 @@ import { loginSchema } from "../schemas/auth";
 
 export function LoginPage() {
   const app = document.getElementById('app');
-  if (!app) return
+  if (!app) return ''
 
   app.innerHTML = `
     <body class="antialiased bg-gradient-to-br from-green-100 to-white">
@@ -116,7 +116,8 @@ export function LoginPage() {
         'tutor@demo.com': 'Tutor123'
       };
       if (users[email] && users[email] === password) {
-        localStorage.setItem('user', JSON.stringify({ email }));
+        const role = email.includes('admin') ? 'admin' : 'tutor';
+        localStorage.setItem('user', JSON.stringify({ email, role }));
         Swal.fire({
           title: 'Éxito',
           text: 'Inicio de sesión exitoso',
