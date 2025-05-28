@@ -1,13 +1,12 @@
 interface Props{
   id: string;
   checked?: boolean;
-  onChange: (checked: boolean) => void;
 }
-export function ToggleSwitch({ id, checked = false, onChange }: Props
+export function ToggleSwitch({ id, checked = false}: Props
 ): string {
   return `
     <div class="flex items-center">
-      <input type="checkbox" id="${id}" class="toggle-switch" ${checked ? "checked" : ""} onchange="this.checked ? ${onChange.toString()}(true) : ${onChange.toString()}(false)">
+      <input type="checkbox" id="${id}" class="toggle-switch" ${checked ? "checked" : ""}">
     </div>
     <style>
       .toggle-switch {
@@ -39,4 +38,5 @@ export function ToggleSwitch({ id, checked = false, onChange }: Props
       }
     </style>
   `;
+
 }

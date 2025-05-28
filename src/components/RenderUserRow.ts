@@ -50,7 +50,6 @@ export function renderUserRow(user: User): string {
         ${ToggleSwitch(
           {id: `${user.id}`,
           checked: user.state,
-          onChange: (checked: boolean) => UserStorage.updateState(user.id, checked),
           }
         )}
 

@@ -4,6 +4,7 @@ import { MainLayout, setupSidebar } from './layouts/MainLayout';
 import './style.css'
 import { RegisterPage, setupRegisterPage } from './pages/register';
 import { EditUserPage, setupEditUserPage } from './pages/edit-user';
+import { UserStorage } from './utils/userStorage';
 
 const app = document.getElementById('app');
 const route = window.location.pathname
@@ -58,6 +59,15 @@ switch (route) {
         }
       });
     }
+
+    document.querySelectorAll('.toggle-switch').forEach((el) => {
+      el.addEventListener('change', (e) => {
+        const input = e.target as HTMLInputElement;
+        const userId = input.id;
+        const checked = input.checked;
+        UserStorage.updateState(userId, checked);
+      });
+    });
     break;
 
   case '/register':
