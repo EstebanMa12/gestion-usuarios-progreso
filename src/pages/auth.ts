@@ -34,12 +34,25 @@ export function LoginPage() {
                 <label for="password" class="text-gray-500 mb-2 font-semibold flex items-center gap-2">
                   <i data-lucide="log-in" class="w-5 h-5 text-green-500"></i> Contraseña
                 </label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Por favor inserte su contraseña"
-                  class="appearance-none border-2 border-green-100 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:shadow-lg transition-all duration-200"
-                />
+                <div class="relative border-2 border-green-100 rounded-xl focus:ring-2 focus:ring-green-400 focus:shadow-lg transition-all duration-200">
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Inserte su contraseña"
+                    class="appearance-non  px-4 py-3 pr-10 placeholder-gray-400 focus:outline-none w-full rounded-xl"
+                  />
+                  <button
+                    type="button"
+                    id="togglePassword"
+                    tabindex="-1"
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                  >
+                    <svg id="eyeIcon" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+                  </button>
+                </div>
               </div>
               <div class="flex flex-col w-full mt-2">
                 <button
@@ -63,9 +76,26 @@ export function LoginPage() {
       UserCog,
       LogIn,
       Mail,
-      RectangleEllipsis
+      RectangleEllipsis,
     }
   });
+
+  // Password visibility toggle
+  const passwordInput = document.getElementById('password') as HTMLInputElement | null;
+  const togglePassword = document.getElementById('togglePassword') as HTMLButtonElement | null;
+  const eyeIcon = document.getElementById('eyeIcon') as HTMLElement | null;
+
+  if (togglePassword && passwordInput && eyeIcon) {
+    let visible = false;
+    togglePassword.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isPassword = passwordInput.type === "password"
+      visible = !visible;
+      passwordInput.type = visible ? 'text' : 'password';
+      eyeIcon.innerHTML = isPassword
+        ?  `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>`:`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>`
+    });
+  }
 
   const loginForm = document.getElementById('loginForm');
 
