@@ -6,7 +6,7 @@ export function exportUsersToCSV(users: User[]) {
     alert('No hay usuarios para exportar.');
     return;
   }
-  const replacer = (key: any, value: null) => value === null ? '' : value;
+  const replacer = (_key: any, value: null) => value === null ? '' : value;
   const header = Object.keys(users[0]);
   const csv = [
     header.join(','),
