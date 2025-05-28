@@ -7,6 +7,10 @@ export function setupUsersPage(): void {
   const roleFilter = document.getElementById("roleFilter") as HTMLSelectElement
   const routeFilter = document.getElementById("routeFilter") as HTMLSelectElement
 
+  // Obtener usuario actual para saber si es admin
+  const userData = JSON.parse(localStorage.getItem('user') || '{}');
+  const isAdmin = userData.role === 'admin';
+
   // Configurar filtros
   if (searchInput && roleFilter && routeFilter) {
     const filterUsers = () => {
@@ -48,7 +52,7 @@ export function setupUsersPage(): void {
         if (remainingUsers.length === 0) {
           const container = document.getElementById("usersContainer")
           if (container) {
-            container.innerHTML = renderEmptyState()
+            container.innerHTML = renderEmptyState(isAdmin)
           }
         }
       }

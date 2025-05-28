@@ -1,6 +1,5 @@
 import type { User } from "../schemas/auth"
 import { ToggleSwitch } from "./ToggleSwitch"
-import { UserStorage } from "../utils/userStorage"
 
 export function renderUserRow(user: User): string {
   const roleLabels = {

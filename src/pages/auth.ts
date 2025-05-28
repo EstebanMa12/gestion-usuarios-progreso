@@ -116,7 +116,8 @@ export function LoginPage() {
         'tutor@demo.com': 'Tutor123'
       };
       if (users[email] && users[email] === password) {
-        localStorage.setItem('user', JSON.stringify({ email }));
+        const role = email.includes('admin') ? 'admin' : 'tutor';
+        localStorage.setItem('user', JSON.stringify({ email, role }));
         Swal.fire({
           title: 'Éxito',
           text: 'Inicio de sesión exitoso',

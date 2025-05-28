@@ -75,6 +75,17 @@ switch (route) {
       window.location.href = '/login';
       break;
     }
+    // Solo permitir acceso a admin
+    try {
+      const userData = JSON.parse(user || '{}');
+      if (userData.role !== 'admin') {
+        window.location.href = '/dashboard';
+        break;
+      }
+    } catch {
+      window.location.href = '/dashboard';
+      break;
+    }
     if (app) {
       app.innerHTML = MainLayout(RegisterPage())
       setupSidebar()
