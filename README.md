@@ -6,6 +6,13 @@ Sistema web para la gestión de usuarios y seguimiento de su progreso educativo.
 
 Esta aplicación permite a administradores y tutores gestionar usuarios (estudiantes, tutores, administradores), registrar su avance, exportar datos y visualizar el historial de progreso de cada usuario. Incluye autenticación básica y filtros por rol y ruta de aprendizaje.
 
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
 ## Tecnologías utilizadas
 
 - TypeScript
