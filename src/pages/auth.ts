@@ -1,69 +1,54 @@
-
-import { createIcons, LogIn, UserCog } from "lucide";
+import { createIcons, LogIn, Mail, RectangleEllipsis, UserCog } from "lucide";
 import Swal from "sweetalert2";
 import { loginSchema } from "../schemas/user";
-
 
 export function LoginPage() {
   const app = document.getElementById('app');
   if (!app) return ''
 
   app.innerHTML = `
-    <body class="antialiased bg-gradient-to-br from-green-100 to-white">
-    <div class="container px-6 mx-auto">
-      <div
-        class="flex flex-col text-center md:text-left md:flex-row h-screen justify-evenly md:items-center"
-      >
-        <div class="flex flex-col w-full">
-          <div>
-            <i data-lucide="user-cog" class="
-              w-16 h-16 text-green-600 mx-auto md:mx-0 mb-5
-              md:mb-0
-            "></i>
-          </div>
-          <h1 class="text-5xl text-gray-800 font-bold">
-          Progreso Educa
-          </h1>
-          <p class="w-5/12 mx-auto md:mx-0 text-gray-500">
-            Gestiona el avance de tus estudiantes y registra sus avances
-          </p>
+    <body class="antialiased min-h-screen bg-gradient-to-br from-green-200 via-white to-green-100 flex items-center justify-center">
+      <div class="container px-4 mx-auto flex flex-col md:flex-row items-center justify-center min-h-screen">
+        <div class="flex flex-col w-full md:w-1/2 items-center md:items-start mb-10 md:mb-0">
+          <img src="/public/libro-abierto.jpg" alt="Logo" class="w-20 h-20 mb-6 rounded-full shadow-lg border-4 border-green-200 bg-white" />
+          <h1 class="text-5xl text-green-700 font-extrabold mb-2 drop-shadow-lg">Progreso Educa</h1>
+          <p class="w-full md:w-8/12 text-gray-600 text-lg mb-4 text-center md:text-left">Gestiona el avance de tus estudiantes y registra sus avances</p>
+          <span class="inline-block bg-green-100 text-green-700 px-4 py-1 rounded-full text-xs font-semibold shadow">Bienvenido de nuevo</span>
         </div>
-        <div class="w-full md:w-full lg:w-9/12 mx-auto md:mx-0">
-          <div class="bg-white p-10 flex flex-col w-full shadow-xl rounded-xl">
-            <h2 class="text-2xl font-bold text-gray-800 text-left mb-5">
-              Inicia sesión
-            </h2>
-            <form id="loginForm" class="w-full">
-              <div id="input" class="flex flex-col w-full my-5">
-                <label for="email" class="text-gray-500 mb-2"
-                  >Email</label
-                >
+        <div class="w-full md:w-1/2 flex items-center justify-center">
+          <div class="bg-white/90 p-10 flex flex-col w-full max-w-md shadow-2xl rounded-3xl border border-green-100">
+            <h2 class="text-3xl font-bold text-green-700 text-center mb-7">Inicia sesión</h2>
+            <form id="loginForm" class="w-full space-y-6">
+              <div class="flex flex-col w-full">
+                <label for="email" class="text-gray-500 mb-2 font-semibold flex items-center gap-2">
+                  <i data-lucide="user-cog" class="w-5 h-5 text-green-500"></i> Email
+                </label>
                 <input
                   type="text"
                   id="email"
                   placeholder="Por favor inserte su email"
-                  class="appearance-none border-2 border-gray-100 rounded-lg px-4 py-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:shadow-lg"
+                  class="appearance-none border-2 border-green-100 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:shadow-lg transition-all duration-200"
                 />
               </div>
-              <div id="input" class="flex flex-col w-full my-5">
-                <label for="password" class="text-gray-500 mb-2"
-                  >Password</label
-                >
+              <div class="flex flex-col w-full">
+                <label for="password" class="text-gray-500 mb-2 font-semibold flex items-center gap-2">
+                  <i data-lucide="log-in" class="w-5 h-5 text-green-500"></i> Contraseña
+                </label>
                 <input
                   type="password"
                   id="password"
                   placeholder="Por favor inserte su contraseña"
-                  class="appearance-none border-2 border-gray-100 rounded-lg px-4 py-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:shadow-lg"
+                  class="appearance-none border-2 border-green-100 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:shadow-lg transition-all duration-200"
                 />
               </div>
-              <div id="button" class="flex flex-col w-full my-5">
+              <div class="flex flex-col w-full mt-2">
                 <button
                   type="submit"
-                  class="w-full py-4 bg-green-600 rounded-lg text-green-100"
+                  class="w-full py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-xl text-white font-bold shadow-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400"
                 >
                   <div class="flex items-center justify-center gap-2">
                     <i data-lucide="log-in"></i>
-                    <span class="font-bold"> Iniciar sesión</span>
+                    <span>Iniciar sesión</span>
                   </div>
                 </button>
               </div>
@@ -71,13 +56,14 @@ export function LoginPage() {
           </div>
         </div>
       </div>
-    </div>
-  </body>
+    </body>
   `
   createIcons({
     icons: {
       UserCog,
-      LogIn
+      LogIn,
+      Mail,
+      RectangleEllipsis
     }
   });
 
