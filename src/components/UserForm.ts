@@ -1,4 +1,4 @@
-import { userSchema, type User, type UserFormData } from "../schemas/auth"
+import { userSchema, type User, type UserFormData } from "../schemas/user"
 
 
 interface UserFormOptions {

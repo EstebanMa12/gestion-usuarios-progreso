@@ -1,7 +1,7 @@
 
 import { createIcons, LogIn, UserCog } from "lucide";
 import Swal from "sweetalert2";
-import { loginSchema } from "../schemas/auth";
+import { loginSchema } from "../schemas/user";
 
 
 export function LoginPage() {

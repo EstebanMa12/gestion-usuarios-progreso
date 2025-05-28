@@ -285,7 +285,64 @@ export function showUserProgressModal(userId: string): void {
           ${renderHistoryItem(newEntry)}
         `;
       }
+      // Actualizar estadísticas
+      updateStats();
       form.reset();
     });
+  }
+
+  // Función para actualizar las estadísticas del modal
+  function updateStats() {
+    const average = progressEntries.length > 0 ? Math.round(progressEntries.reduce((sum, entry) => sum + entry.score, 0) / progressEntries.length) : 0;
+    const last = progressEntries.length > 0 ? progressEntries[progressEntries.length - 1].score : 0;
+    const best = progressEntries.length > 0 ? Math.max(...progressEntries.map(entry => entry.score)) : 0;
+    const total = progressEntries.length;
+    const averageScore = document.getElementById("averageScore");
+    const lastScore = document.getElementById("lastScore");
+    const bestScore = document.getElementById("bestScore");
+    const totalEvaluations = document.getElementById("totalEvaluations");
+    if (averageScore) averageScore.textContent = String(average);
+    if (lastScore) lastScore.textContent = String(last);
+    if (bestScore) bestScore.textContent = String(best);
+    if (totalEvaluations) totalEvaluations.textContent = String(total);
+    // Barras de progreso
+    const avgBar = averageScore?.parentElement?.parentElement?.querySelector('div.bg-gradient-to-r.from-blue-500');
+    if (avgBar) (avgBar as HTMLElement).style.width = `${average}%`;
+    const lastBar = lastScore?.parentElement?.parentElement?.querySelector('div.bg-gradient-to-r.from-green-500');
+    if (lastBar) (lastBar as HTMLElement).style.width = `${last}%`;
+    const bestBar = bestScore?.parentElement?.parentElement?.querySelector('div.bg-gradient-to-r.from-yellow-500');
+    if (bestBar) (bestBar as HTMLElement).style.width = `${best}%`;
+    // Tendencia
+    const trendIndicator = document.getElementById("trendIndicator");
+    if (trendIndicator) {
+      if (progressEntries.length < 2) {
+        trendIndicator.innerHTML = '<span class="text-xs text-gray-500">Insuficientes datos</span>';
+      } else {
+        const lastTwo = progressEntries.slice(-2);
+        const trend = lastTwo[1].score - lastTwo[0].score;
+        if (trend > 0) {
+          trendIndicator.innerHTML = `
+            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm font-medium text-green-600">Mejorando (+${trend})</span>
+          `;
+        } else if (trend < 0) {
+          trendIndicator.innerHTML = `
+            <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm font-medium text-red-600">Descendiendo (${trend})</span>
+          `;
+        } else {
+          trendIndicator.innerHTML = `
+            <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm font-medium text-gray-600">Estable (${trend})</span>
+          `;
+        }
+      }
+    }
   }
 }

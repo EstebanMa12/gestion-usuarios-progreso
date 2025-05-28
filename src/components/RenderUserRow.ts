@@ -1,4 +1,4 @@
-import type { User } from "../schemas/auth"
+import type { User } from "../schemas/user"
 import { ToggleSwitch } from "./ToggleSwitch"
 
 export function renderUserRow(user: User): string {

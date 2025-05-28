@@ -1,4 +1,4 @@
-import type { User } from "../schemas/auth";
+import type { User } from "../schemas/user";
 
 // Utilidad para exportar usuarios a CSV
 export function exportUsersToCSV(users: User[]) {

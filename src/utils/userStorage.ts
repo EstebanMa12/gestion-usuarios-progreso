@@ -1,4 +1,4 @@
-import type { User } from "../schemas/auth"
+import type { User } from "../schemas/user"
 
 
 export class UserStorage {
