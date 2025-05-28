@@ -54,7 +54,10 @@ export function renderUserRow(user: User): string {
 
       </td>
       <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <button id='editUserBtn' class="text-blue-600 hover:text-blue-900 mr-3">Editar</button>
+        <button class="editUserBtn text-blue-600 hover:text-blue-900 mr-3" data-user-id="${user.id}">Editar</button>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+        <button class="viewProgressBtn text-green-600 hover:text-green-900" data-user-id="${user.id}">Ver Progreso</button>
       </td>
     </tr>
   `

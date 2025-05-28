@@ -14,7 +14,6 @@ export class UserForm {
   private onCancel?: () => void
   private editUser?: User
   private form: HTMLFormElement | null = null
-  private errors: Record<string, string> = {}
   private isSubmitting = false
 
   constructor(options: UserFormOptions) {

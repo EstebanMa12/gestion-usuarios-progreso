@@ -21,7 +21,7 @@ return `
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label for="searchInput" class="block text-sm font-medium text-gray-700 mb-1">Buscar</label>
-            <input type="text" id="searchInput" placeholder="Buscar por nombre o email..." 
+            <input type="text" id="searchInput" placeholder="Buscar por email..." 
                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
           </div>
           <div>
@@ -31,15 +31,6 @@ return `
               <option value="student">Estudiante</option>
               <option value="tutor">Tutor</option>
               <option value="admin">Administrador</option>
-            </select>
-          </div>
-          <div>
-            <label for="routeFilter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por ruta</label>
-            <select id="routeFilter" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-              <option value="">Todas las rutas</option>
-              <option value="frontend">Frontend</option>
-              <option value="backend">Backend</option>
-              <option value="fullstack">Fullstack</option>
             </select>
           </div>
         </div>

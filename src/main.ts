@@ -5,6 +5,7 @@ import './style.css'
 import { RegisterPage, setupRegisterPage } from './pages/register';
 import { EditUserPage, setupEditUserPage } from './pages/edit-user';
 import { UserStorage } from './utils/userStorage';
+import { setupUsersPage } from "./components/SetupUserPage";
 
 const app = document.getElementById('app');
 const route = window.location.pathname
@@ -28,6 +29,7 @@ switch (route) {
     if (app) {
       app.innerHTML = MainLayout(DashboardPage())
       setupSidebar();
+      setupUsersPage(); // Inicializa los filtros y búsqueda
     }
     // Puedes agregar aquí lógica para eventos del layout, como logout
     const logoutBtn = document.getElementById('logoutBtn');
@@ -38,27 +40,15 @@ switch (route) {
       });
     }
 
-    const editUserBtn = document.getElementById('editUserBtn')
-    if (editUserBtn) {
-      editUserBtn.addEventListener('click', () => {
-        console.log('Edit User button clicked');
-        const userId = editUserBtn.getAttribute('data-user-id');
-        console.log('User ID:', userId);
+    document.querySelectorAll('.editUserBtn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const userId = (e.currentTarget as HTMLElement).getAttribute('data-user-id');
         if (userId) {
           window.location.href = `/edit-user?id=${userId}`;
         }
       });
-    }
-    const deleteUserBtn = document.getElementById('deleteUserBtn')
-    if (deleteUserBtn) {
-      deleteUserBtn.addEventListener('click', () => {
-        const userId = deleteUserBtn.getAttribute('data-user-id');
-        if (userId && confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
-          localStorage.removeItem('user-' + userId);
-          window.location.href = '/dashboard';
-        }
-      });
-    }
+    });
+
 
     document.querySelectorAll('.toggle-switch').forEach((el) => {
       el.addEventListener('change', (e) => {
