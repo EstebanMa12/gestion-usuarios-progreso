@@ -4,7 +4,7 @@ Sistema web para la gestión de usuarios y seguimiento de su progreso educativo.
 
 ## Descripción
 
-Esta aplicación permite a administradores y tutores gestionar usuarios (estudiantes, tutores, administradores), registrar su avance, exportar datos y visualizar el historial de progreso de cada usuario. Incluye autenticación básica y filtros por rol y ruta de aprendizaje.
+Esta aplicación permite a administradores y tutores gestionar usuarios (estudiantes, tutores, administradores), registrar su avance, exportar datos y visualizar el historial de progreso de cada usuario. Incluye autenticación básica y filtros por rol y busqueda por email.
 
 ![alt text](public/image.png)
 ![alt text](public/image-1.png)
@@ -42,7 +42,6 @@ Esta aplicación permite a administradores y tutores gestionar usuarios (estudia
 
 - `npm run dev`: Inicia el servidor de desarrollo.
 - `npm run build`: Compila la aplicación para producción.
-- `npm run preview`: Previsualiza la build de producción.
 
 ## Uso
 
